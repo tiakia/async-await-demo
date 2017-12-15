@@ -14,17 +14,19 @@ const showColumnInfo = async () => {
   console.time('SHOWCOLUMNINFO');
 
   const names = ['feweekly', 'toolingtips'];
-  // const promiseArr = names.map(val => getZhihuColumn(val));
-  // for(let promise of promiseArr){
-  //   const column = await promise;
-  //   console.log(`NAME: ${column.name}`);
-  //   console.log(`INTRO: ${column.intro}`)
-  // }
-  for (let i = 0; i< names.length; i++){
+  //串行的处理方式
+  const promiseArr = names.map(val => getZhihuColumn(val));
+  for(let promise of promiseArr){
+    const column = await promise;
+    console.log(`NAME: ${column.name}`);
+    console.log(`INTRO: ${column.intro}`)
+  }
+  //并行的处理方式
+  /* for (let i = 0; i< names.length; i++){
     const column = await getZhihuColumn(names[i]);
     console.log(`NAME: ${column.name}`);
     console.log(`INTRO: ${column.intro}`);
-  }
+  } */
 
   console.timeEnd('SHOWCOLUMNINFO');
 }
